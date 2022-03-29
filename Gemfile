@@ -53,3 +53,7 @@ gem "devise"
 
 # JWT Gem for authentication
 gem "jwt"
+
+
+# Use ActiveModelSerializers for serializing JSON 
+gem "active_model_serializers"

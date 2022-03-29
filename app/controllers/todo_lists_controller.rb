@@ -3,7 +3,7 @@ class TodoListsController < ApplicationController
 
 
     def index
-
+        render json: current_user.todo_lists
     end
 
     def show
@@ -14,6 +14,7 @@ class TodoListsController < ApplicationController
 
 
         todo_list = TodoList.new(todo_list_params)
+        todo_list.user = current_user
 
 
         if todo_list.save

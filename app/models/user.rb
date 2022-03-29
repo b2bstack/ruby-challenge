@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-
+  has_many :todo_lists, dependent: :destroy
   
   def generate_jwt
     JWT.encode({ id: self.id,

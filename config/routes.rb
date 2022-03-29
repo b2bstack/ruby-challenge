@@ -3,4 +3,18 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  root "application#home"
+
+  get "test", to: "users#test"
+
+  scope :api, defaults: { format: :json } do
+    devise_for :users, controllers: { sessions: :sessions },
+                       path_names: { sign_in: :login }
+    resource :user, only: [:show, :update]
+  end
+
+
+
+
 end

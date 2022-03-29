@@ -50,3 +50,6 @@ end
 
 # Devise Gem for authentication
 gem "devise"
+
+# JWT Gem for authentication
+gem "jwt"

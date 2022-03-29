@@ -49,6 +49,13 @@ Edit sample_exports.sh and run it to create the database and tables:
         source sample_exports.sh
         rake db:setup # This will create the database and tables
 
+## SMTP Configuration
+ * SMTP:
+ I'm using external smtp server. Edit sample_exports.sh and run it to define the SMTP settings:
+
+        source sample_exports.sh
+
+## U only need to run "source sample_exports.sh" one time to setup the environment
 <br />
 
 ## Some hints of what we expect to see are:

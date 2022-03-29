@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   root "application#home"
 
-  get "test", to: "users#test"
 
   scope :api, defaults: { format: :json } do
     devise_for :users, controllers: { sessions: :sessions },

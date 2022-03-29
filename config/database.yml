@@ -20,15 +20,15 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: <%= ENV["POSTGRES_DB"] %>
   user: <%= ENV["POSTGRES_USER"] %>
   password: <%= ENV["POSTGRES_PASSWORD"] %>
   host: <%= ENV["POSTGRES_HOST"] %>
   port: <%= ENV["POSTGRES_PORT"] %>
-  template: <%= ENV["POSTGRES_TEMPLATE"] %>
-
-development:
-  <<: *default
-  database: ruby_challenge_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -62,7 +62,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ruby_challenge_test
+  database: <%= ENV["POSTGRES_TEST_DB"] %>
+  user: <%= ENV["POSTGRES_TEST_USER"] %>
+  password: <%= ENV["POSTGRES_TEST_PASSWORD"] %>
+  host: <%= ENV["POSTGRES_TEST_HOST"] %>
+  port: <%= ENV["POSTGRES_TEST_PORT"] %>
+
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -89,3 +94,4 @@ production:
   database: ruby_challenge_production
   username: ruby_challenge
   password: <%= ENV["RUBY_CHALLENGE_DATABASE_PASSWORD"] %>
+  

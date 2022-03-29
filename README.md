@@ -35,6 +35,22 @@ At this stage of the selection process we want the decisions behind the code, so
 
 <br />
 
+## Database Configuration
+ * PostgreSQL:
+I'm using to diferrent hosts for the development and test environments.
+Edit sample_exports.sh and run it to create the database and tables:
+
+        source sample_exports.sh
+        rake db:create
+        rake db:migrate
+
+        # Setup instead of rake db:create db:migrate
+
+        source sample_exports.sh
+        rake db:setup # This will create the database and tables
+
+<br />
+
 ## Some hints of what we expect to see are:
 Basic instructions on how to run the project;
 Details about your solution, we would like to know what was your rationale in the decisions;

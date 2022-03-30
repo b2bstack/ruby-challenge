@@ -12,8 +12,14 @@ class User < ApplicationRecord
   has_many :todo_lists, dependent: :destroy
   
   def generate_jwt
-    JWT.encode({ id: self.id,
-                exp: 60.days.from_now.to_i },
-               Rails.application.secrets.secret_key_base)
+    if ENV['RAILS_ENV'] == 'development'
+      JWT.encode({ id: self.id,
+                  exp: 60.days.from_now.to_i },
+                 Rails.application.secrets.secret_key_base)
+    else
+        JWT.encode({ id: self.id,
+                  exp: 60.days.from_now.to_i },
+                 Rails.application.secret_key_base)
+    end
   end
 end

@@ -39,7 +39,7 @@ class ApplicationController < ActionController::API
               if ENV['RAILS_ENV'] == 'development'
                 jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
               else ENV['RAILS_ENV'] == 'production'
-                jwt_payload = JWT.decode(token, Rails.application.secret_key_base).first
+                jwt_payload = JWT.decode(token, Rails.application.secret_key_base)
               end
 
               (1..10).each do |i|

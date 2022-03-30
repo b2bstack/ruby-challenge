@@ -36,6 +36,7 @@ class ApplicationController < ActionController::API
             token = request.headers['Authorization'].split(' ').last
             begin
 
+              # Verification for heroku Deployment
               if ENV['RAILS_ENV'] == 'development'
                 jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
               else ENV['RAILS_ENV'] == 'production'

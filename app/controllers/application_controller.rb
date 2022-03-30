@@ -36,10 +36,16 @@ class ApplicationController < ActionController::API
             token = request.headers['Authorization'].split(' ').last
             begin
               jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
-              
+              (1..10).each do |i|
+                puts jwt_payload
+              end
     
               @current_user_id = jwt_payload['id']
-            rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
+              (1..10).each do |i|
+                puts @current_user_id
+              end
+            rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
+              puts e
               head :unauthorized
             end
         end

@@ -50,6 +50,60 @@ RSpec.describe "Todo Lists", type: :request do
     end
     describe "POST /" do
 
+        let (:todo_list_params) do
+            {
+                todo_list: {
+                    title: "some title",
+                    description: "some description",
+                    user_id: 1
+                }
+            }
+        end
+
+        it "creates a todo list" do
+            post_with_token "/api/todo_lists", todo_list_params
+            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": nil  } }}.to_json)
+        end
+
+        it "need a user to be logged in to create a todo list" do
+            post "/api/todo_lists", params: todo_list_params
+            expect(response).to have_http_status(401)
+        end
+
+        it "returns error with title already used" do
+            first_create = create(:todo_list, title: 'some title', description: 'some description', user_id: 1)
+            post_with_token "/api/todo_lists", todo_list_params
+            expect(response).to have_http_status(422)
+        end
+
+        it "returns error with null title" do
+            todo_list_params_2 = todo_list_params
+            todo_list_params_2[:todo_list][:title] = nil
+            post_with_token "/api/todo_lists", todo_list_params_2
+            expect(response).to have_http_status(422)
+        end
+
+        it "return sucess with null description" do
+            todo_list_params_2 = todo_list_params
+            todo_list_params_2[:todo_list][:description] = nil
+            post_with_token "/api/todo_lists", todo_list_params
+            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": nil  } }}.to_json)
+        end
+
+        it "create on current user even if user_id is null " do
+            todo_list_params_2 = todo_list_params
+            todo_list_params_2[:todo_list][:user_id] = nil
+            post_with_token "/api/todo_lists", todo_list_params_2
+            TodoList.find(TodoList.last.id).user_id.should eq(@user.id)
+        end
+        
+        it "create on current user even if user_id is not null but not the current user" do
+            todo_list_params_2 = todo_list_params
+            todo_list_params_2[:todo_list][:user_id] = 2
+            post_with_token "/api/todo_lists", todo_list_params_2
+            TodoList.find(TodoList.last.id).user_id.should eq(@user.id)
+        end
+
     end
 
 end

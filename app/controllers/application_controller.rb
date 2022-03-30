@@ -39,7 +39,7 @@ class ApplicationController < ActionController::API
               if ENV['RAILS_ENV'] == 'development'
                 jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
               else ENV['RAILS_ENV'] == 'production'
-                jwt_payload = JWT.decode(token, Rails.application.secret_key_base)
+                jwt_payload = JWT.decode(token, Rails.application.secret_key_base).first
               end
 
               @current_user_id = jwt_payload['id']

@@ -75,7 +75,7 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to eq( { errors: { 'email or password' => ['is invalid'] } }.to_json) 
     end
 
-    it "return http sucess on login with valid params" do
+    it "return auth token on login with valid params" do
       post "/api/users/login", params: login_params
       if JSON.parse(response.body)["token"]
         token = JSON.parse(response.body)["token"]

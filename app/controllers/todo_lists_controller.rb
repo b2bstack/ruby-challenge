@@ -8,7 +8,11 @@ class TodoListsController < ApplicationController
     end
 
     def show
-
+        if @todo_list.user == current_user
+            render json: @todo_list
+        else
+            render json: { errors: { 'todo_list' => ['is not found'] } }, status: :not_found
+        end
     end
 
     def create

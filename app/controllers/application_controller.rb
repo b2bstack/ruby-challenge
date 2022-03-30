@@ -29,9 +29,6 @@ class ApplicationController < ActionController::API
     end
 
     def authenticate_user
-        (1..10).each do |i|
-          puts request.headers['Authorization']
-        end
         if request.headers['Authorization'].present?
             token = request.headers['Authorization'].split(' ').last
             begin

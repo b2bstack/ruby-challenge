@@ -4,12 +4,12 @@ class TodoListsController < ApplicationController
 
 
     def index
-        render json: current_user.todo_lists
+        render json: current_user.todo_lists , each_serializer: TodoListSerializer
     end
 
     def show
         if @todo_list.user == current_user
-            render json: @todo_list
+            render json: @todo_list, serializer: TodoListSerializer
         else
             render json: { errors: { 'todo_list' => ['is not found'] } }, status: :not_found
         end
@@ -23,7 +23,7 @@ class TodoListsController < ApplicationController
 
 
         if todo_list.save
-            render json: { todo_list: todo_list }
+            render json:  todo_list, serializer: TodoListSerializer
         else
             render json: { errors: todo_list.errors }, status: :unprocessable_entity
         end

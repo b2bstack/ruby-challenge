@@ -35,7 +35,13 @@ class ApplicationController < ActionController::API
         if request.headers['Authorization'].present?
             token = request.headers['Authorization'].split(' ').last
             begin
-              jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
+
+              if ENV['RAILS_ENV'] == 'development'
+                jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
+              else ENV['RAILS_ENV'] == 'production'
+                jwt_payload = JWT.decode(token, Rails.application.secret_key_base).first
+              end
+
               (1..10).each do |i|
                 puts jwt_payload
               end

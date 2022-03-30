@@ -10,8 +10,12 @@ class ApplicationController < ActionController::API
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :authenticate_user , :except => [:home]
 
-    def home 
-        render json: { message: "Welcome to the API" }
+    def home
+        if params[:alert]
+          render json: { message: params[:alert] }
+        else
+          render json: { message: "Welcome to the API" }
+        end
     end
 
     
@@ -44,7 +48,9 @@ class ApplicationController < ActionController::API
     end
     
     def current_user
-      @current_user ||= super || User.find(@current_user_id)
+      if @current_user_id != nil
+        @current_user ||= super || User.find(@current_user_id)
+      end
     end
     
     def signed_in?

@@ -37,6 +37,11 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 group :development, :test do
+  # User rspec rail for testing
+  gem "rspec-rails"
+  gem 'faker'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
@@ -54,6 +59,6 @@ gem "devise"
 # JWT Gem for authentication
 gem "jwt"
 
-
 # Use ActiveModelSerializers for serializing JSON 
 gem "active_model_serializers"
+

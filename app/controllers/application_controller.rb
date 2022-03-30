@@ -29,14 +29,23 @@ class ApplicationController < ActionController::API
     end
 
     def authenticate_user
+        (1..10).each do |i|
+          puts request.headers['Authorization']
+        end
         if request.headers['Authorization'].present?
             token = request.headers['Authorization'].split(' ').last
             begin
-              jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
-              
-    
+
+              # Verification for heroku Deployment
+              if ENV['RAILS_ENV'] == 'development'
+                jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
+              else ENV['RAILS_ENV'] == 'production'
+                jwt_payload = JWT.decode(token, Rails.application.secret_key_base).first
+              end
+
               @current_user_id = jwt_payload['id']
-            rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
+            rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
+              puts e
               head :unauthorized
             end
         end
@@ -44,7 +53,7 @@ class ApplicationController < ActionController::API
 
 
     def authenticate_user!(options = {})
-        head :unauthorized unless signed_in?
+        head :unauthorized unless current_user
     end
     
     def current_user

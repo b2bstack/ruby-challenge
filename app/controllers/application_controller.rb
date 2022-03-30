@@ -47,7 +47,7 @@ class ApplicationController < ActionController::API
 
 
     def authenticate_user!(options = {})
-        head :unauthorized unless signed_in?
+        head :unauthorized unless current_user
     end
     
     def current_user

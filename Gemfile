@@ -62,3 +62,5 @@ gem "jwt"
 # Use ActiveModelSerializers for serializing JSON 
 gem "active_model_serializers"
 
+# Pagy Gem for pagination
+gem "pagy"

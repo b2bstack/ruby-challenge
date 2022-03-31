@@ -3,10 +3,9 @@ class ApplicationController < ActionController::API
     # For APIs, you may want to use :null_session instead.
     # protect_from_forgery with: :null_session
     # before_action :underscore_params!
-    
 
+    include Pagy::Backend
     respond_to :json
-
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :authenticate_user , :except => [:home]
 

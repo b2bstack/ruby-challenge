@@ -2,12 +2,13 @@ class ItemsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_todo_list, only: [:index, :create]
     before_action :set_item, only: [:show, :update, :destroy]
-
+    after_action { pagy_headers_merge(@pagy) if @pagy }
     # GET /items
     def index
         if @todo_list && @todo_list.user == current_user
-            @items = @todo_list.items
-            render json: @items, each_serializer: ItemSerializer
+            collection_serializer = ActiveModel::Serializer::CollectionSerializer
+            @pagy, @items = pagy(@todo_list.active_items, items: 5)
+            render json: { todo_list: TodoListSerializer.new(@todo_list).as_json, items: collection_serializer.new(@items, each_serializer: ItemSerializer).as_json }
         else
             render json: { error: 'Todo list not found' }, status: :not_found 
         end
@@ -16,7 +17,20 @@ class ItemsController < ApplicationController
     # GET /items/1
     def show
         if @item && @item.todo_list.user == current_user
-            render json: @item
+
+            
+            @item.update(mode: :read)
+            
+
+            if params[:executed] == 'true'
+                @item.update(mode: :executed)
+            end
+
+            if params[:archived] == 'true'
+                @item.update(mode: :archived)
+            end
+
+            render json: @item, serializer: ItemSerializer
         else
             render json: { error: 'Item not found' }, status: :not_found
         end
@@ -26,10 +40,10 @@ class ItemsController < ApplicationController
     def create
         begin
             @item = Item.new(item_params)
-            @item.mode = :pending
+            @item.mode = :pending    # default
 
             if @item.save && @item.todo_list.user == current_user
-                render json: @item, status: :created, location: @item
+                render json: { item: ItemSerializer.new(@item).as_json }, status: :created, location: @item
             else
                 render json: @item.errors, status: :unprocessable_entity
             end
@@ -55,7 +69,7 @@ class ItemsController < ApplicationController
     private
 
     def set_todo_list
-        if params[:todo_list_id]
+        if params[:todo_list_id] && params[:action] != 'show'
             begin 
                 @todo_list = TodoList.find(params[:todo_list_id])
             rescue ActiveRecord::RecordNotFound => e

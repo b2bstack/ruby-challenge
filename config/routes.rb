@@ -20,8 +20,12 @@ Rails.application.routes.draw do
    
 
     resources :items, only: [:index, :show, :create, :update, :destroy]
+    get 'view_item', to: 'items#show'
+    get 'remove_item', to: 'items#destroy'
+
 
     resources :todo_lists, only: [:index, :show, :create, :update, :destroy]
+    get 'delete_todo_list', to: 'todo_lists#destroy'
 
 
   end

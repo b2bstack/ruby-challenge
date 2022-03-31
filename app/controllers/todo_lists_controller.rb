@@ -1,10 +1,12 @@
 class TodoListsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_todo_list, only: [:show, :edit, :update, :destroy]
+    after_action { pagy_headers_merge(@pagy) if @pagy }
 
 
     def index
-        render json: current_user.todo_lists
+        @pagy, @todo_lists = pagy(current_user.todo_lists, items: 5)
+        render json: @todo_lists
     end
 
     def show

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
    
 
-
+    resources :items, only: [:index, :show, :create, :update, :destroy]
 
     resources :todo_lists, only: [:index, :show, :create, :update, :destroy]
 

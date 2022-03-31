@@ -16,19 +16,15 @@ class TodoListsController < ApplicationController
     end
 
     def create
-
-
         todo_list = TodoList.new(todo_list_params)
         todo_list.user = current_user
 
 
         if todo_list.save
-            render json: { todo_list: todo_list }
+            render json:  todo_list, serializer: TodoListSerializer
         else
             render json: { errors: todo_list.errors }, status: :unprocessable_entity
         end
-
-
     end
 
     def edit

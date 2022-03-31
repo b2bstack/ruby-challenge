@@ -18,9 +18,6 @@ class ApplicationController < ActionController::API
         end
     end
 
-    
-
-
 
     private
 

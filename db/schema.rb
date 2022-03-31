@@ -25,12 +25,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_150347) do
   end
 
   create_table "todo_lists", force: :cascade do |t|
-    t.string "title"
-    t.integer "items_count"
-    t.boolean "finished"
+    t.string "title", null: false
+    t.integer "items_count", default: 0
+    t.boolean "finished", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "mode"
+    t.integer "mode", default: 0, null: false
     t.text "description"
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_todo_lists_on_user_id"

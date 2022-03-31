@@ -24,15 +24,15 @@ RSpec.describe "Todo Lists", type: :request do
 
         it "not expose todo list of another user" do
             todo_list = create(:todo_list, title: 'some title', description: 'some description', user_id: 1)
-            todo_list_another_user = create(:todo_list, title: 'some title 2', description: 'some description', user_id: 2)
+            todo_list_another_user = create(:todo_list, title: 'some title 2', description: 'some description', id: 3, user_id: 2)
             get_with_token "/api/todo_lists"
-            expect(response.body).to eq({data: [{id: todo_list.id.to_s, type: 'todo-lists', attributes: {title: todo_list.title, description: todo_list.description, "created-at": todo_list.created_at, "updated-at": todo_list.updated_at, "items-count": 1  }}]}.to_json)
+            expect(response.body).to eq({data: [{id: todo_list.id.to_s, type: 'todo-lists', attributes: {title: todo_list.title, description: todo_list.description, mode: "pending", "created-at": todo_list.created_at, "updated-at": todo_list.updated_at, "items-count": 1  }}]}.to_json)
         end
 
         it "can be accessed by the user who created it" do
             todo_list = create(:todo_list, title: 'some title', description: 'some description', user_id: 1)
             get_with_token "/api/todo_lists/#{todo_list.id}"
-            expect(response.body).to eq({data: {id: todo_list.id.to_s, type: 'todo-lists', attributes: {title: todo_list.title, description: todo_list.description, "created-at": todo_list.created_at, "updated-at": todo_list.updated_at, "items-count": 1  }}}.to_json)
+            expect(response.body).to eq({data: {id: todo_list.id.to_s, type: 'todo-lists', attributes: {title: todo_list.title, description: todo_list.description, mode: "pending", "created-at": todo_list.created_at, "updated-at": todo_list.updated_at, "items-count": 1  }}}.to_json)
         end
 
         it "cannot be accessed by another user" do
@@ -55,14 +55,15 @@ RSpec.describe "Todo Lists", type: :request do
                 todo_list: {
                     title: "some title",
                     description: "some description",
-                    user_id: 1
+                    user_id: 1,
+                    mode: "pending"
                 }
             }
         end
 
         it "creates a todo list" do
             post_with_token "/api/todo_lists", todo_list_params
-            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": nil  } }}.to_json)
+            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, mode: "pending", "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": 0  } }}.to_json)
         end
 
         it "need a user to be logged in to create a todo list" do
@@ -87,7 +88,7 @@ RSpec.describe "Todo Lists", type: :request do
             todo_list_params_2 = todo_list_params
             todo_list_params_2[:todo_list][:description] = nil
             post_with_token "/api/todo_lists", todo_list_params
-            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": nil  } }}.to_json)
+            expect(response.body).to eq({data: {id: TodoList.last.id.to_s, type: "todo-lists", attributes: { title: TodoList.last.title, description: TodoList.last.description, mode: "pending", "created-at": TodoList.last.created_at, "updated-at": TodoList.last.updated_at, "items-count": 0  } }}.to_json)
         end
 
         it "create on current user even if user_id is null " do

@@ -6,6 +6,9 @@ Fork this repository, complete challenge, submit pull request and provide produc
 
 ## Project Guidelines
 Create an API that allows users to manage their TO-DO list
+
+<br />
+
 Provide API documentation
 
 <br />
@@ -63,7 +66,7 @@ At this stage of the selection process we want the decisions behind the code, so
 
 ## Database Configuration
  * PostgreSQL:
-I'm using to diferrent hosts for the development and test environments.
+I'm using two diferrent hosts for the development and test environments.
 Edit sample_exports.sh and run it to create the database and tables:
 
         source sample_exports.sh

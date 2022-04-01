@@ -64,3 +64,9 @@ gem "active_model_serializers"
 
 # Pagy Gem for pagination
 gem "pagy"
+
+# Rack CORS Gem for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem "rack-cors"
+
+# Rack CORS Gem for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem "rack-attack"

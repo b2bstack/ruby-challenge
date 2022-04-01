@@ -26,8 +26,7 @@ class TodoListsController < ApplicationController
        else
             @pagy, @items = pagy(current_user.todo_lists, items: 40)
        end
-           
-       end
+        
         @pagy, @todo_lists = pagy(current_user.todo_lists, items: 10)
         render json: @todo_lists
     end

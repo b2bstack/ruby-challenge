@@ -5,12 +5,22 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins "example.com"
-#
-#     resource "*",
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins "example.com"
+
+    resource "*",
+      headers: :any,
+      methods: [:get, :post]
+  end
+end
+
+
+
+if ENV['SERVER_MODE'] == 'staging' || ENV['SERVER_MODE'] == 'production'
+    Rails.application.config.hosts << ("ruby-challenge-#{ENV['SERVER_MODE']}.herokuapp.com")
+  
+else
+    Rails.application.config.hosts << "localhost:3000"
+    Rails.application.config.hosts << "www.example.com"
+end

@@ -1,5 +1,13 @@
 # Ruby Challenge To Do List Manager - Rails API
 
+
+## Staging: <http://ruby-challenge-staging.herokuapp.com/>
+
+## Production: <http://ruby-challenge-production.herokuapp.com/>
+
+## DEV Environment: <http://localhost:3000/>
+
+
 <br />
 
 ## Project Guidelines
@@ -1548,7 +1556,7 @@ In Development Outerspace Coding Website with rails 7, tailwindcss, sidekiq & cr
 * [Github](https://github.com/JesusGautamah/outerspace_coding)
 
 CrawlerOnRails with Docker and Sidekiq
-* [Github](https://github.com/JesusGautamah/CrawlerOnRails)
+* [Github](https://github.com/JesusGautamah/Crawler_On_Rails)
 
 Simple Flutter IMC Calculator
 * [Github](https://github.com/JesusGautamah/imc_calculator)
@@ -1556,7 +1564,7 @@ Simple Flutter IMC Calculator
 (Contributed with backend) Simple Flutter CryptoWallet
 * [Github](https://github.com/angelorange/bank_space)
 
-EasyProxy Shell
+EasyProxy Shell, controll proxy with tor and privoxy
 * [Github](https://github.com/JesusGautamah/EasyProxy)
 
 

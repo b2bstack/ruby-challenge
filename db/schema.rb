@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_150347) do
   create_table "items", force: :cascade do |t|
     t.bigint "todo_list_id", null: false
     t.string "action"
-    t.integer "mode"
+    t.integer "mode", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -27,7 +27,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_150347) do
   create_table "todo_lists", force: :cascade do |t|
     t.string "title", null: false
     t.integer "items_count", default: 0
-    t.boolean "finished", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "mode", default: 0, null: false

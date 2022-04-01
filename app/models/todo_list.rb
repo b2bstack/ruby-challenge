@@ -3,23 +3,19 @@ class TodoList < ApplicationRecord
     validates :title, presence: true, uniqueness: true
     has_many :items, dependent: :destroy
     enum mode: [:pending, :intiated, :done]
-    MODE_ORDERS = [ 
-                  [1, 2, 0],
-                  [2, 0, 1],
-                  [0, 1, 2],
-                  [1, 0, 2],
-                  [2, 1, 0],
-                  [0, 2, 1]
-                          ]
+    TODO_ORDERS = [ [0, 1, 2],
+                    [1, 2, 0],
+                    [2, 0, 1],
+                    [0, 2, 1],
+                    [1, 0, 2],
+                    [2, 1, 0] ]
+        
 
-                    
-            
-                    
-    def mode_order(factor)
-        self.in_order_of(:mode, MODE_ORDERS[factor])
+    def self.where_ordered_by_mode(factor, user)
+        self.where(user_id: user.id).in_order_of(:mode, TODO_ORDERS[factor])
     end
-            
 
+    
     def active_items
         self.items.where.not(mode: :archived)
     end

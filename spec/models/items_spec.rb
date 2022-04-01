@@ -21,9 +21,9 @@ RSpec.describe Item, type: :model do
     expect(item_2).to_not be_valid
   end
 
-  it "is not valid without a mode" do
+  it "is valid without a mode" do
     item_2 = build(:item, todo_list_id: 1,  name: 'item teste', action: 'some action', mode: nil, id: 1, created_at: '2022-03-29 17:56:40', updated_at: '2022-03-29 17:56:40')
-    expect(item_2).to_not be_valid
+    expect(item_2).to be_valid
   end
 
   it "is not valid without a name" do

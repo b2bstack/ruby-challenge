@@ -6,28 +6,26 @@ class TodoListsController < ApplicationController
 
     def index
        if params[:filter] == 'mode_desc'
-            @pagy, @items = pagy(current_user.todo_lists.order(mode: :desc), items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists.order(mode: :desc), items: 10)
            
        elsif params[:filter] == 'mode_asc'
-            @pagy, @items = pagy(current_user.todo_lists.order(mode: :asc), items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists.order(mode: :asc), items: 10)
            
        elsif params[:filter] == 'mode_pending_only'
-            @pagy, @items = pagy(current_user.todo_lists.where(mode: 0), items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists.where(mode: 0), items: 10)
            
        elsif params[:filter] == 'mode_initiated_only'
-            @pagy, @items = pagy(current_user.todo_lists.where(mode: 1), items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists.where(mode: 1), items: 10)
            
        elsif params[:filter] == 'mode_done_only'
-            @pagy, @items = pagy(current_user.todo_lists.where(mode: 2), items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists.where(mode: 2), items: 10)
            
        elsif params[:filter_factor] == params[:filter_factor].to_i.to_s && params[:filter_factor].to_i >= 0 && params[:filter_factor].to_i <= 5
-            @pagy, @items = pagy(current_user.todo_lists.mode_order(params[:filter_factor].to_i), items: 40)
-           
+            @pagy, @todo_lists = pagy(TodoList.where_ordered_by_mode(params[:filter_factor].to_i, current_user), items: 10)
        else
-            @pagy, @items = pagy(current_user.todo_lists, items: 40)
+            @pagy, @todo_lists = pagy(current_user.todo_lists, items: 10)
        end
-        
-        @pagy, @todo_lists = pagy(current_user.todo_lists, items: 10)
+           
         render json: @todo_lists
     end
 

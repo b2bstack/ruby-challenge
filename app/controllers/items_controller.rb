@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
 
     # GET /items/1
     def show
-        if @item && @item.todo_list.user == current_user
+        if @item && @item.todo_list.user.id == current_user.id
 
             
             @item.update(mode: :read)
@@ -63,9 +63,8 @@ class ItemsController < ApplicationController
             @item.mode = :pending    # default
 
             if @item.save && @item.todo_list.user == current_user
-                if @item.todo_list.mode == :pending || @item.todo_list.mode == :executed
-                    @item.todo_list.update(mode: :intiated)
-                end
+                todo_list = @item.todo_list
+                todo_list.update(mode: :initiated)
                 render json: { item: ItemSerializer.new(@item).as_json }, status: :created, location: @item
             else
                 render json: @item.errors, status: :unprocessable_entity
@@ -86,7 +85,7 @@ class ItemsController < ApplicationController
 
     # DELETE /items/1
     def destroy
-        if @item.todo_list.user == current_user
+        if @item.todo_list.user.id == current_user.id
             if @item.destroy
                 render json: { message: 'Item deleted' }
             else
@@ -113,7 +112,7 @@ class ItemsController < ApplicationController
         begin
             @item = Item.find(params[:id])
         rescue ActiveRecord::RecordNotFound => e
-            render json: { error: 'Item not found' }, status: :not_found
+            render json: { error: 'Item not found here' }, status: :not_found
         end
     end
 

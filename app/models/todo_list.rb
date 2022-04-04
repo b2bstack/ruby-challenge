@@ -2,7 +2,7 @@ class TodoList < ApplicationRecord
     belongs_to :user
     validates :title, presence: true, uniqueness: true
     has_many :items, dependent: :destroy
-    enum mode: [:pending, :intiated, :done]
+    enum mode: [:pending, :initiated, :done]
     TODO_ORDERS = [ [0, 1, 2],
                     [1, 2, 0],
                     [2, 0, 1],

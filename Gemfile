@@ -16,6 +16,8 @@ gem "bcrypt", "3.1.17"
 
 gem "jwt", "2.3.0"
 
+gem "rack-cors", "1.1.1"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

@@ -20,6 +20,8 @@ gem "rack-cors", "1.1.1"
 
 gem "rack-attack", "6.6.1"
 
+gem "dotenv-rails", "2.7.6"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

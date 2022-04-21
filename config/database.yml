@@ -17,10 +17,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  port: 5432
-  username: user
-  password: passwd
-  host: localhost
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -86,5 +86,3 @@ test:
 production:
   <<: *default
   database: ruby_challenge_production
-  username: ruby_challenge
-  password: <%= ENV["RUBY_CHALLENGE_DATABASE_PASSWORD"] %>

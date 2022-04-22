@@ -22,6 +22,8 @@ gem "rack-attack", "6.6.1"
 
 gem "dotenv-rails", "2.7.6"
 
+gem "apipie-rails", "0.7.2"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

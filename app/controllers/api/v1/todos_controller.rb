@@ -15,10 +15,12 @@ class Api::V1::TodosController < ApplicationController
   def index
     render json: {
       todos: current_user.todos.map do |todo|
+        todo_items = params[:status].present? ?
+          todo.todo_items.where(status: params[:status]) : todo.todo_items
         {
           id: todo.id,
           title: todo.title,
-          todo_items: todo.todo_items.map do |todo_item|
+          todo_items: todo_items.map do |todo_item|
             {
               description: todo_item.description,
               status: todo_item.status
@@ -151,6 +153,34 @@ class Api::V1::TodosController < ApplicationController
         error: "Todo not found"
       }, status: :not_found
     end
+  end
+
+  api :GET, "/v1/users/:user_id/todos/by_status", "Filter by status"
+  header "Authorization", "Define the token", required: true
+  param :status, TodoItem.statuses.keys, desc: "Statuses of todo item", required: false
+  param :todo_id, lambda { |val|
+    val.to_i.to_s == val
+  }, desc: "Id of the todo", required: false
+  # Filter by status
+  def by_status
+    todos = params[:todo_id].present? ?
+        current_user.todos.where(id: params[:todo_id]) : current_user.todos
+    render json: {
+      todos: todos.map do |todo|
+        todo_items = params[:status].present? ? todo.todo_items.where(status: params[:status]) :
+          todo.todo_items
+        {
+          id: todo.id,
+          title: todo.title,
+          todo_items: todo_items.map do |todo_item|
+            {
+              description: todo_item.description,
+              status: todo_item.status
+            }
+          end
+        }
+      end
+    }, status: :ok
   end
 
   def todo_params

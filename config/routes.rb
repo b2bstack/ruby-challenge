@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
         resources :todos do
           post :clear_items, on: :member
+          get :by_status, on: :collection, params: [:status, :todo_id]
 
           resources :todo_items, path: :items, only: [:show, :create, :update, :destroy] do
             post :set_status, on: :member, param: :status

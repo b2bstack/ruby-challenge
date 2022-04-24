@@ -159,7 +159,7 @@ class Api::V1::TodosController < ApplicationController
   header "Authorization", "Define the token", required: true
   param :status, TodoItem.statuses.keys, desc: "Statuses of todo item", required: false
   param :todo_id, lambda { |val|
-    val.to_i.to_s == val
+    val.to_i.to_s == val ? true : "Must be an integer"
   }, desc: "Id of the todo", required: false
   # Filter by status
   def by_status

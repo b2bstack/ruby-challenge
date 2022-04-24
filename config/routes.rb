@@ -15,9 +15,10 @@ Rails.application.routes.draw do
         resources :todos do
           post :clear_items, on: :member
 
-          resources :todo_items, path: :items, only: [:create, :update, :destroy] do
+          resources :todo_items, path: :items, only: [:show, :create, :update, :destroy] do
             post :set_status, on: :member, param: :status
             post :archive, on: :member
+            post :execute, on: :member
           end
         end
       end

@@ -9,7 +9,7 @@ class Api::V1::TodosController < ApplicationController
     formats [:json]
   end
 
-  api :GET, "/v1/users/:id/todos", "Show all todos of a user"
+  api :GET, "/v1/users/:user_id/todos", "Show all todos of a user"
   header "Authorization", "define the token", required: true
   # Show all todos
   def index
@@ -29,7 +29,7 @@ class Api::V1::TodosController < ApplicationController
     }, status: :ok
   end
 
-  api :GET, "/v1/users/:id/todos/:id", "Get details of a todo"
+  api :GET, "/v1/users/:user_id/todos/:id", "Get details of a todo"
   header "Authorization", "define the token", required: true
   param :status, TodoItem.statuses.keys, desc: "Statuses of todo item"
   # Show all todo items of a todo
@@ -59,7 +59,7 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  api :POST, "/v1/users/:id/todos", "Create new todo"
+  api :POST, "/v1/users/:user_id/todos", "Create new todo"
   header "Authorization", "Define the token", required: true
   formats ['json']
   param :title, String, required: true, desc: "Title of the todo"
@@ -93,7 +93,7 @@ class Api::V1::TodosController < ApplicationController
     }, status: :created
   end
 
-  api :PATCH, "/v1/users/:id/todos/:id", "Update title of todo"
+  api :PATCH, "/v1/users/:user_id/todos/:id", "Update title of todo"
   header "Authorization", "Define the token", required: true
   param :title, String, required: true, desc: "Title of the todo"
   # Update title of todo
@@ -113,7 +113,7 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  api :DELETE, "/v1/users/:id/todos/:id", "Remove a todo with all todo items"
+  api :DELETE, "/v1/users/:user_id/todos/:id", "Remove a todo with all todo items"
   header "Authorization", "Define the token", required: true
   # Remove a todo with all todo items
   def destroy
@@ -130,7 +130,7 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  api :POST, "/v1/users/:id/todos/:id/clear_items", "Clear all todo items"
+  api :POST, "/v1/users/:user_id/todos/:id/clear_items", "Clear all todo items"
   header "Authorization", "Define the token", required: true
   # Clear all todo items
   def clear_items
@@ -139,7 +139,7 @@ class Api::V1::TodosController < ApplicationController
     if todo
       if todo.todo_items.destroy_all
         render json: {
-          message: "All todo items of #{todo.title} successfully removed"
+          message: "All todo items of #{todo.title} successfully cleared"
         }, status: :ok
       else
         render json: {

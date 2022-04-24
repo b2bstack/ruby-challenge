@@ -11,6 +11,15 @@ Rails.application.routes.draw do
         collection do
           post :login
         end
+
+        resources :todos do
+          post :clear_items, on: :member
+
+          resources :todo_items, path: :items, only: [:create, :update, :destroy] do
+            post :set_status, on: :member, param: :status
+            post :archive, on: :member
+          end
+        end
       end
     end
   end

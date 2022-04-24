@@ -1,7 +1,7 @@
 class TodoItem < ApplicationRecord
   belongs_to :todo
 
-  enum status: { new: 0, readed: 1, executed: 2 }, _prefix: :status, _default: :new
+  enum status: { newer: 0, readed: 1, executed: 2, archived: 3 }, _prefix: :status, _default: :newer
 
   validates :description, presence: true
   validates :todo_id, presence: true

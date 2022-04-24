@@ -33,9 +33,6 @@ gem "apipie-rails", "0.7.2"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
@@ -56,6 +53,7 @@ group :development, :test do
 
   gem "rspec-rails", "4.0.2"
   gem "factory_bot", "6.2.1"
+  gem "faker", "2.20.0"
 end
 
 group :development do

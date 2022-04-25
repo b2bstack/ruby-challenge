@@ -1,41 +1,56 @@
-# B2B STACK - Developer Ruby Backend
+# Challenge TODO
 
-Fork this repository, complete challenge, submit pull request and provide product preview URL.
+This solution bassically use 3 models:
 
-<br />
+* User (Manage the users)
+  * Has many Todos
+* Todo (Manage the todos. E.g: List of task)
+  * Belongs to User
+  * Has many TodoItems
+* TodoItems (Manage the todo items. E.g: Items of task)
+  * Belongs to Todo
 
-## Project Guidelines
-Create an API that allows users to manage their TO-DO list
-Provide API documentation
+Gems used:
+* To the token I used: "jwt"
+* For more security I used: "rack-cors, rack-attack"
+* Simplify environment: "dotenv"
+* For API documentation: "apipie"
+* For pagination: "kaminari"
 
-<br />
+## API Documentation
+To see the API documentation, you can access the path of application:
 
-## Product Specifications
-The API must have the following features:
-* Create an item
-* Remove an item
-* Archive an item
-* Mark an item as read
-* Mark an item as executed
-* List items according to their status
-* Pagination
+  E.g: `http://localhost:3000/api/doc/`
 
-<br />
+P.s. The documentation of return of payload is pending to make.
 
-## Technical Guidelines
-* ROR
-* MySQL or PostgreSQL
-* REST
-* JSON
+## Initialize
+To run locally you need this requisits:
+### Requisits
+* Ruby 3.1.2
+* Docker (docker-compose)
 
-<br />
+If you have this requisits above, you can run the following command:
 
-## About the documentation
-At this stage of the selection process we want the decisions behind the code, so it is essential that the README has some information that understands your solution.
-
-<br />
-
-## Some hints of what we expect to see are:
-Basic instructions on how to run the project;
-Details about your solution, we would like to know what was your rationale in the decisions;
-In case something is not clear and you need to recognize some premise, which means it motivated you to make decisions.
+ 1. Run the command in root path of the project:
+    ```
+    $ docker-compose up
+    ```
+ 2. Install dependencies:
+    ```
+    $ bundle install
+    ```
+ 3. Run the migrations:
+    ```
+    $ rails db:create
+    $ rails db:migrate
+    ```
+ 4. Up the rails API server:
+    ```
+    $ rails s -e production
+    ```
+## Pending
+This my items I didn't not finish yet:
+* Code Coverage Test
+* Deploy and provide remote URL
+* Serialize object using gem jsonapi-rails

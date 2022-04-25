@@ -24,6 +24,7 @@ gem "dotenv-rails", "2.7.6"
 
 gem "apipie-rails", "0.7.2"
 
+gem "kaminari", "1.2"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  paginates_per 10
+
   has_secure_password
 
   validates_presence_of :name, :username, :password_digest

@@ -11,10 +11,14 @@ class Api::V1::TodosController < ApplicationController
 
   api :GET, "/v1/users/:user_id/todos", "Show all todos of a user"
   header "Authorization", "define the token", required: true
+  param :status, String, desc: "Filter by status", required: false
+  param :page, NumericParam, desc: "Page number", required: false
   # Show all todos
   def index
+    todos = current_user.todos.page(current_page)
+
     render json: {
-      todos: current_user.todos.map do |todo|
+      todos: todos.map do |todo|
         todo_items = params[:status].present? ?
           todo.todo_items.where(status: params[:status]) : todo.todo_items
         {
@@ -27,7 +31,13 @@ class Api::V1::TodosController < ApplicationController
             }
           end
         }
-      end
+      end,
+      pagination: {
+        total_pages: Todo.page.total_pages,
+        limit_per_page: Todo.page.limit_value,
+        current_page: todos.current_page,
+        count_items: todos.count
+      }
     }, status: :ok
   end
 
@@ -158,13 +168,14 @@ class Api::V1::TodosController < ApplicationController
   api :GET, "/v1/users/:user_id/todos/by_status", "Filter by status"
   header "Authorization", "Define the token", required: true
   param :status, TodoItem.statuses.keys, desc: "Statuses of todo item", required: false
-  param :todo_id, lambda { |val|
-    val.to_i.to_s == val ? true : "Must be an integer"
-  }, desc: "Id of the todo", required: false
+  param :todo_id, NumericParam, desc: "Id of the todo", required: false
+  param :page, NumericParam, desc: "Page number", required: false
   # Filter by status
   def by_status
     todos = params[:todo_id].present? ?
-        current_user.todos.where(id: params[:todo_id]) : current_user.todos
+        current_user.todos.page(current_page).where(id: params[:todo_id]) :
+        current_user.todos.page(current_page)
+
     render json: {
       todos: todos.map do |todo|
         todo_items = params[:status].present? ? todo.todo_items.where(status: params[:status]) :
@@ -179,8 +190,20 @@ class Api::V1::TodosController < ApplicationController
             }
           end
         }
-      end
+      end,
+      pagination: {
+        total_pages: Todo.page.total_pages,
+        limit_per_page: Todo.page.limit_value,
+        current_page: todos.current_page,
+        count_items: todos.count
+      }
     }, status: :ok
+  end
+
+  private
+
+  def current_page
+    params[:page].present? ? params[:page].to_i : 1
   end
 
   def todo_params

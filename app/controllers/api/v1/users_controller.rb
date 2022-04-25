@@ -9,10 +9,18 @@ class Api::V1::UsersController < ApplicationController
 
   api :GET, "/v1/users", "Show all users"
   header "Authorization", "define the token", required: true
+  param :page, NumericParam, desc: "Page number", required: false
   # Show all users
   def index
+    users = User.page(params[:page].present? ? params[:page] : 1).select(:id, :name, :username)
     render json: {
-      users: User.select(:id, :name, :username)
+      users: users,
+      pagination: {
+        total_pages: User.page.total_pages,
+        limit_per_page: User.page.limit_value,
+        current_page: users.current_page,
+        count_items: users.count
+      }
     }, status: :ok
   end
 

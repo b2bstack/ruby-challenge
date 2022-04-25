@@ -13,6 +13,16 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       headers: :any,
       methods: [:get, :post, :patch, :delete]
   end
+
+  allow do
+    origins '*'
+    resource '/public/*', headers: :any, methods: :get
+
+    resource '/api/v1/*',
+        headers: :any,
+        methods: [:get, :post, :patch, :delete],
+        if: proc { |env| env['HTTP_HOST'] == 'api.example.com' }
+  end
 end
 
 Rails.application.config.hosts << "localhost:3000"

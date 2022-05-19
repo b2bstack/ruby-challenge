@@ -59,3 +59,4 @@ group :test do
 end
 
 gem 'jsonapi-serializer', '~> 2.2'
+gem 'pagy', '~> 5.10'

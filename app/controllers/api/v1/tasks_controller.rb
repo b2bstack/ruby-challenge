@@ -3,10 +3,13 @@
 module Api
   module V1
     class TasksController < BaseController
+      include Pagy::Backend
       before_action :load_task, only: %i[destroy status]
 
       def index
-        @tasks = fetch_all
+        @pagy, @tasks = pagy(fetch_all, items: QTT_BY_PAGE)
+        pagy_headers_merge(@pagy)
+
         render json: serialized_data(@tasks), status: :ok
       end
 

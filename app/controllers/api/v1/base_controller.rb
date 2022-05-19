@@ -3,6 +3,8 @@
 module Api
   module V1
     class BaseController < ApplicationController
+      QTT_BY_PAGE = 12
+
       protected
 
       def serialized_data(resource)

@@ -40,7 +40,6 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
   gem 'rspec-rails', '~> 5.1'
-  gem 'rswag', '~> 2.5'
 end
 
 group :development do
@@ -61,3 +60,4 @@ end
 
 gem 'jsonapi-serializer', '~> 2.2'
 gem 'pagy', '~> 5.10'
+gem 'rswag', '~> 2.5'

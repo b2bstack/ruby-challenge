@@ -1,24 +1,57 @@
-# README
+# Ruby Challenge
+## About
+Task management application developed in Ruby that aims to meet the proposed challenge.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project dependencies
+* ruby 3.1.2
+* rails 7.0.3
+* PostgreSQL
 
-Things you may want to cover:
+## Project instalation
 
-* Ruby version
+### Clone the project
+* `git clone https://github.com/Hendrew/ruby-challenge.git`
 
-* System dependencies
+### Enter in folder
+* `cd ruby-challenge`
+### Intall the gems
+* `bundle install`
 
-* Configuration
+### Running tests
+* `bundle exec rspec`
 
-* Database creation
+### Running app
+* `rails s`
 
-* Database initialization
+If everything is ok, you can check the app running on http://localhost:3000
 
-* How to run the test suite
+## Little API documentation
+### Task list
+`
+GET /api/v1/tasks/?status=read
+`
 
-* Services (job queues, cache servers, search engines, etc.)
+You can pass the *`status`* as a parameter to filter the result: read, excuted and archived
 
-* Deployment instructions
+### Create task
+`
+POST /api/v1/tasks
+`
 
-* ...
+### Delete task
+`
+POST /api/v1/tasks/{id}
+`
+
+## Project online
+
+[Access the project online](https://rubychellangeb2b.herokuapp.com)
+
+## Final considerations
+
+In this project, in addition to the standard Rails framework gems, the following were also highlighted:
+
+* `pagy` for pagination purposes
+* `jsonapi-serializer` for serialization purposes
+* `rspec` for test purposes
+* `rswag` for documentation purposes

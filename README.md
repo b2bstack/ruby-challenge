@@ -45,7 +45,7 @@ POST /api/v1/tasks/{id}
 
 ## Project online
 
-[Access the project online](https://rubychellangeb2b.herokuapp.com)
+[Access the project online](https://rubychallengeb2b.herokuapp.com)
 
 ## Final considerations
 

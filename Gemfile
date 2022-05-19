@@ -57,3 +57,5 @@ group :test do
   gem 'faker', '~> 2.20'
   gem 'shoulda-matchers', '~> 5.1'
 end
+
+gem 'jsonapi-serializer', '~> 2.2'

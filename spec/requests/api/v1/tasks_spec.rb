@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe '/api/v1/tasks', type: :request do
   let(:valid_attributes) do
@@ -97,6 +98,61 @@ RSpec.describe '/api/v1/tasks', type: :request do
       it 'it is not updated' do
         expect(response).to have_http_status(:ok)
         expect(task.title).to_not eq('some title')
+      end
+    end
+  end
+
+  # API documentation
+
+  path '/api/v1/tasks' do
+    get 'Get tasks' do
+      tags 'Tasks'
+      consumes 'application/json'
+      description 'Get tasks'
+      parameter name: :status, in: :path, type: :string, description: 'task status', required: false
+      response '200', 'Tasks found' do
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/tasks' do
+    post 'Create a task' do
+      tags 'Tasks'
+      consumes 'application/json'
+      description 'Create a task'
+      parameter name: :task, in: :body, schema: {
+        type: :object,
+        properties: {
+          title: { type: :string, example: 'Title sample' },
+          status: { type: :string, example: 'read' }
+        },
+        required: [:title]
+      }
+
+      response '201', 'task created' do
+        let(:task) { valid_attributes }
+        run_test!
+      end
+
+      response '422', 'invalid request' do
+        let(:task) { invalid_attributes }
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/tasks/{id}' do
+    delete 'Delete a task' do
+      tags 'Tasks'
+      consumes 'application/json'
+      description 'Delete a task'
+      parameter name: :id, in: :path, type: :string, description: 'task id', required: true
+
+      response '204', 'Task deleted' do
+        let(:task) { create(:task) }
+        let(:id) { task.id }
+        run_test!
       end
     end
   end

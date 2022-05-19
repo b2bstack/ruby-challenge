@@ -6,7 +6,7 @@ module Api
       before_action :load_task, only: %i[destroy status]
 
       def index
-        @tasks = Task.order(created_at: :desc)
+        @tasks = fetch_all
         render json: serialized_data(@tasks), status: :ok
       end
 
@@ -43,6 +43,12 @@ module Api
 
       def task_params
         params.require(:task).permit(:title, :status)
+      end
+
+      def fetch_all
+        result = Task.order(created_at: :desc)
+        result = result.where(status: params[:status]) if params[:status].present?
+        result
       end
     end
   end

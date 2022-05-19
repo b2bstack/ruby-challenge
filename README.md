@@ -1,41 +1,24 @@
-# B2B STACK - Developer Ruby Backend
+# README
 
-Fork this repository, complete challenge, submit pull request and provide product preview URL.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-<br />
+Things you may want to cover:
 
-## Project Guidelines
-Create an API that allows users to manage their TO-DO list
-Provide API documentation
+* Ruby version
 
-<br />
+* System dependencies
 
-## Product Specifications
-The API must have the following features:
-* Create an item
-* Remove an item
-* Archive an item
-* Mark an item as read
-* Mark an item as executed
-* List items according to their status
-* Pagination
+* Configuration
 
-<br />
+* Database creation
 
-## Technical Guidelines
-* ROR
-* MySQL or PostgreSQL
-* REST
-* JSON
+* Database initialization
 
-<br />
+* How to run the test suite
 
-## About the documentation
-At this stage of the selection process we want the decisions behind the code, so it is essential that the README has some information that understands your solution.
+* Services (job queues, cache servers, search engines, etc.)
 
-<br />
+* Deployment instructions
 
-## Some hints of what we expect to see are:
-Basic instructions on how to run the project;
-Details about your solution, we would like to know what was your rationale in the decisions;
-In case something is not clear and you need to recognize some premise, which means it motivated you to make decisions.
+* ...

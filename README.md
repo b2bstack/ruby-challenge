@@ -14,6 +14,10 @@ Task management application developed in Ruby that aims to meet the proposed cha
 
 ### Enter in folder
 * `cd ruby-challenge`
+
+### Enter environment variables
+* Rename *`.env.sample`* to *`.env`*
+* Fill in the fields
 ### Intall the gems
 * `bundle install`
 

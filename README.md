@@ -1,41 +1,61 @@
-# B2B STACK - Developer Ruby Backend
+# Ruby Challenge
+## About
+Task management application developed in Ruby that aims to meet the proposed challenge.
 
-Fork this repository, complete challenge, submit pull request and provide product preview URL.
+## Project dependencies
+* ruby 3.1.2
+* rails 7.0.3
+* PostgreSQL
 
-<br />
+## Project instalation
 
-## Project Guidelines
-Create an API that allows users to manage their TO-DO list
-Provide API documentation
+### Clone the project
+* `git clone https://github.com/Hendrew/ruby-challenge.git`
 
-<br />
+### Enter in folder
+* `cd ruby-challenge`
 
-## Product Specifications
-The API must have the following features:
-* Create an item
-* Remove an item
-* Archive an item
-* Mark an item as read
-* Mark an item as executed
-* List items according to their status
-* Pagination
+### Enter environment variables
+* Rename *`.env.sample`* to *`.env`*
+* Fill in the fields
+### Intall the gems
+* `bundle install`
 
-<br />
+### Running tests
+* `bundle exec rspec`
 
-## Technical Guidelines
-* ROR
-* MySQL or PostgreSQL
-* REST
-* JSON
+### Running app
+* `rails s`
 
-<br />
+If everything is ok, you can check the app running on http://localhost:3000
 
-## About the documentation
-At this stage of the selection process we want the decisions behind the code, so it is essential that the README has some information that understands your solution.
+## Little API documentation
+### Task list
+`
+GET /api/v1/tasks/?status=read
+`
 
-<br />
+You can pass the *`status`* as a parameter to filter the result: read, excuted and archived
 
-## Some hints of what we expect to see are:
-Basic instructions on how to run the project;
-Details about your solution, we would like to know what was your rationale in the decisions;
-In case something is not clear and you need to recognize some premise, which means it motivated you to make decisions.
+### Create task
+`
+POST /api/v1/tasks
+`
+
+### Delete task
+`
+POST /api/v1/tasks/{id}
+`
+
+## Project online
+
+[Access the project online](https://rubychallengeb2b.herokuapp.com)
+
+## Final considerations
+
+In this project, in addition to the standard Rails framework gems, the following were also highlighted:
+
+* `pagy` for pagination purposes
+* `jsonapi-serializer` for serialization purposes
+* `rspec` for test purposes
+* `rswag` for documentation purposes

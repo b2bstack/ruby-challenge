@@ -1,0 +1,29 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.1.2
+  NewCops: enable
+  Exclude:
+    - bin/**/*
+    - config/**/*
+    - db/schema.rb
+    - db/migrate/**/*
+    - lib/tasks/*.rake
+    - public/**/*
+    - tmp/**/*
+    - vendor/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['context', 'describe', 'feature', 'let', 'scenario']
+
+Layout/LineLength:
+  Max: 130
+
+Metrics/ClassLength:
+  Enabled: false

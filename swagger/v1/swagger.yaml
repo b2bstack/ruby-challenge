@@ -1,0 +1,68 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/tasks":
+    get:
+      summary: Get tasks
+      tags:
+      - Tasks
+      description: Get tasks
+      parameters:
+      - name: status
+        in: path
+        description: task status
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tasks found
+    post:
+      summary: Create a task
+      tags:
+      - Tasks
+      description: Create a task
+      parameters: []
+      responses:
+        '201':
+          description: task created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Title sample
+                status:
+                  type: string
+                  example: read
+              required:
+              - title
+  "/api/v1/tasks/{id}":
+    delete:
+      summary: Delete a task
+      tags:
+      - Tasks
+      description: Delete a task
+      parameters:
+      - name: id
+        in: path
+        description: task id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Task deleted
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

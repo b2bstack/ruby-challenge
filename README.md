@@ -1,41 +1,63 @@
-# B2B STACK - Developer Ruby Backend
+# Desafio Rails
 
-Fork this repository, complete challenge, submit pull request and provide product preview URL.
-
-<br />
-
-## Project Guidelines
-Create an API that allows users to manage their TO-DO list
-Provide API documentation
-
-<br />
-
-## Product Specifications
 The API must have the following features:
-* Create an item
-* Remove an item
-* Archive an item
-* Mark an item as read
-* Mark an item as executed
-* List items according to their status
-* Pagination
 
-<br />
+- Create an item
+- Remove an item (remove, not destroy (soft delete))
+- Archive an item (update, is_archived = true)
+- Mark an item as read (update, is_readed = true)
+- Mark an item as executed (update, is_executed = true)
+- List items according to their status (filter with params)
+- Pagination
 
-## Technical Guidelines
-* ROR
-* MySQL or PostgreSQL
-* REST
-* JSON
+## Setup
 
-<br />
+- Configurar o banco de dados de acordo com a sessão [Database](#database).
+- Rodar os comandos:
 
-## About the documentation
-At this stage of the selection process we want the decisions behind the code, so it is essential that the README has some information that understands your solution.
+```sh
+# Executa as migrations de acordo com os schemas criados.
+rails db:migrate
 
-<br />
+# Popula o banco de dados com os dados de teste.
+rails db:seed
 
-## Some hints of what we expect to see are:
-Basic instructions on how to run the project;
-Details about your solution, we would like to know what was your rationale in the decisions;
-In case something is not clear and you need to recognize some premise, which means it motivated you to make decisions.
+# Serve a aplicação em modo de desenvolvimento (-e development).
+rails s
+```
+
+## Database
+
+> Rodar o credencials:edit para cada ambiente, e inserir o conteúdo conforme
+elucidado.
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e development
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_dev'
+```
+
+---
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e production
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_prod'
+```
+
+---
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e test
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_test'
+```

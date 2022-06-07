@@ -1,4 +1,4 @@
-# Desafio Rails
+# Rails Challenge
 
 The API must have the following features:
 
@@ -12,24 +12,23 @@ The API must have the following features:
 
 ## Setup
 
-- Configurar o banco de dados de acordo com a sessão [Database](#database).
-- Rodar os comandos:
+- Configure database based on [Database](#database) session.
+- Execute the following commands:
 
 ```sh
-# Executa as migrations de acordo com os schemas criados.
+# Execute the migrations based on the created schema.
 rails db:migrate
 
-# Popula o banco de dados com os dados de teste.
+# Populate database with initial data.
 rails db:seed
 
-# Serve a aplicação em modo de desenvolvimento (-e development).
+# Run the application.
 rails s
 ```
 
 ## Database
 
-> Rodar o credencials:edit para cada ambiente, e inserir o conteúdo conforme
-elucidado.
+> Run credentials:edit for each environment, and apply the following content.
 
 ```sh
 EDITOR="code --wait" rails credentials:edit -e development
@@ -61,3 +60,13 @@ EDITOR="code --wait" rails credentials:edit -e test
 db:
   url: 'postgresql://postgres:postgres@localhost/desafio_test'
 ```
+
+## Postman
+- For the API route tests, was added a folder called `postman` in rails root path, with `.json` to be imported.
+  - TodoItem attributes:
+    - `is_archived`: Boolean - which returns if TODO item is archived.
+    - `is_readed`: Boolean - which returns if TODO item is readed.
+    - `is_executed`: Boolean - which returns if TODO item is executed.
+    - `title`: String - which returns the title of TODO item.
+    - `description`: Text - which returns the description of TODO item.
+    - `weight`: Integer - which returns the weight of TODO item.

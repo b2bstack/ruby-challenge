@@ -1,41 +1,72 @@
-# B2B STACK - Developer Ruby Backend
+# Rails Challenge
 
-Fork this repository, complete challenge, submit pull request and provide product preview URL.
-
-<br />
-
-## Project Guidelines
-Create an API that allows users to manage their TO-DO list
-Provide API documentation
-
-<br />
-
-## Product Specifications
 The API must have the following features:
-* Create an item
-* Remove an item
-* Archive an item
-* Mark an item as read
-* Mark an item as executed
-* List items according to their status
-* Pagination
 
-<br />
+- Create an item
+- Remove an item (remove, not destroy (soft delete))
+- Archive an item (update, is_archived = true)
+- Mark an item as read (update, is_readed = true)
+- Mark an item as executed (update, is_executed = true)
+- List items according to their status (filter with params)
+- Pagination
 
-## Technical Guidelines
-* ROR
-* MySQL or PostgreSQL
-* REST
-* JSON
+## Setup
 
-<br />
+- Configure database based on [Database](#database) session.
+- Execute the following commands:
 
-## About the documentation
-At this stage of the selection process we want the decisions behind the code, so it is essential that the README has some information that understands your solution.
+```sh
+# Execute the migrations based on the created schema.
+rails db:migrate
 
-<br />
+# Populate database with initial data.
+rails db:seed
 
-## Some hints of what we expect to see are:
-Basic instructions on how to run the project;
-Details about your solution, we would like to know what was your rationale in the decisions;
-In case something is not clear and you need to recognize some premise, which means it motivated you to make decisions.
+# Run the application.
+rails s
+```
+
+## Database
+
+> Run credentials:edit for each environment, and apply the following content.
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e development
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_dev'
+```
+
+---
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e production
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_prod'
+```
+
+---
+
+```sh
+EDITOR="code --wait" rails credentials:edit -e test
+```
+
+```yaml
+db:
+  url: 'postgresql://postgres:postgres@localhost/desafio_test'
+```
+
+## Postman
+- For the API route tests, was added a folder called `postman` in rails root path, with `.json` to be imported.
+  - TodoItem attributes:
+    - `is_archived`: Boolean - which returns if TODO item is archived.
+    - `is_readed`: Boolean - which returns if TODO item is readed.
+    - `is_executed`: Boolean - which returns if TODO item is executed.
+    - `title`: String - which returns the title of TODO item.
+    - `description`: Text - which returns the description of TODO item.
+    - `weight`: Integer - which returns the weight of TODO item.

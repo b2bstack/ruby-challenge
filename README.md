@@ -1,3 +1,38 @@
+# B2B STACK
+Developer Ruby Backend
+
+#Doc Postman API view:
+please chech this file [Api.postman_collection.json] in [Docs] folder
+or
+https://www.postman.com/warped-firefly-28117/workspace/b2b-stack/overview
+
+#User Api
+http://localhost:3000/users/sign_in
+
+for generate new user run this:
+User.create(email: 'your_mail@server.com', password: '123456')
+
+Must send header params:
+X-User-Email:suporte@marcomapa.com
+X-User-Token:Y4M4b_XHVsMAFR7gQqwy
+
+# SPECIFICATION PROJECT:
+1-) ruby-challenge - Web service to manage TO-DO lists
+[port:3000]
+Gems:
+pg
+Devise
+Devise Simple Token
+Rack Cors
+Rack Attack
+kaminari
+
+#ALTER PASSOWRD TO POSTGRES USER:
+EDITOR=nano rails credentials:edit
+
+
+####################################
+
 # B2B STACK - Developer Ruby Backend
 
 Fork this repository, complete challenge, submit pull request and provide product preview URL.
